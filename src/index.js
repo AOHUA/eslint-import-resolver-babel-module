@@ -102,12 +102,12 @@ exports.resolve = (source, file, opts) => {
 
     const finalSource = stripWebpack(source, pluginOptions.alias);
     const src = resolvePath(finalSource, file, pluginOptions);
-
+    let hotFixSrc = src.replace('../', '');
     const extensions = options.extensions || pluginOptions.extensions;
 
     return {
       found: true,
-      path: resolve.sync(src || source, {
+      path: resolve.sync(hotFixSrc || source, {
         ...options,
         extensions,
         basedir: path.dirname(file),
